@@ -7,7 +7,17 @@
 */
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
-(function($){$.easing['jswing'] = $.easing['swing'];
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery'], function($) {
+			return factory($);
+		});
+	} else if (typeof exports !== 'undefined') {
+		exports = factory(require('jquery'));
+	} else {
+		factory(jQuery);
+	}
+})(function($) {$.easing['jswing'] = $.easing['swing'];
 
 $.extend( $.easing,
 {
@@ -118,7 +128,7 @@ $.extend( $.easing,
 		return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
 	},
 	easeInOutBack: function (x, t, b, c, d, s) {
-		if (s == undefined) s = 1.70158; 
+		if (s == undefined) s = 1.70158;
 		if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
 		return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
 	},
@@ -140,4 +150,4 @@ $.extend( $.easing,
 		if (t < d/2) return $.easing.easeInBounce (x, t*2, 0, c, d) * .5 + b;
 		return $.easing.easeOutBounce (x, t*2-d, 0, c, d) * .5 + c*.5 + b;
 	}
-});})(jQuery);
+});});
